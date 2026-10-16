@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CS & The AI Evolution | Educational Portal</title>
+    <style>
+        :root {
+            --bg-primary: #070b14;
+            --bg-secondary: #0f172a;
+            --bg-card: rgba(15, 23, 42, 0.78);
+            --border-color: rgba(99, 102, 241, 0.25);
+            --accent-blue: #38bdf8;
+            --accent-indigo: #6366f1;
+            --accent-emerald: #10b981;
+            --accent-amber: #f59e0b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: radial-gradient(circle at 15% 15%, #1e1b4b 0%, var(--bg-primary) 45%),
+                        radial-gradient(circle at 85% 80%, #0c4a6e 0%, var(--bg-primary) 50%);
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            line-height: 1.65;
+            overflow-x: hidden;
+        }
+
+        /* Navbar */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(14px);
+            background: rgba(7, 11, 20, 0.85);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 800;
+            font-size: 1.2rem;
+            letter-spacing: -0.02em;
+        }
+
+        .brand-badge {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-indigo));
+            color: #fff;
+            padding: 0.35rem 0.65rem;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+
+        .https-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: rgba(16, 185, 129, 0.14);
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            color: #34d399;
+            padding: 0.25rem 0.7rem;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            font-weight: 600;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        nav a:hover {
+            color: var(--accent-blue);
+        }
+
+        /* Hero Section */
+        .hero {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4.5rem 1.5rem 3.5rem;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        @media (max-width: 900px) {
+            .hero {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .school-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(99, 102, 241, 0.15);
+            border: 1px solid var(--border-color);
+            color: #a5b4fc;
+            padding: 0.4rem 0.9rem;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1.25rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.2rem, 4vw, 3.35rem);
+            line-height: 1.15;
+            font-weight: 800;
+            margin-bottom: 1.25rem;
+            letter-spacing: -0.03em;
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #38bdf8, #818cf8, #34d399);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            max-width: 640px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.18s ease, box-shadow 0.18s ease;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-indigo));
+            color: #fff;
+            box-shadow: 0 8px 24px rgba(56, 189, 248, 0.25);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Terminal Code Card in Hero */
+        .code-window {
+            background: #090d16;
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+        }
+
+        .window-bar {
+            background: #111827;
+            padding: 0.75rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .dots {
+            display: flex;
+            gap: 0.45rem;
+        }
+
+        .dot {
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+        }
+
+        .dot.red { background: #ef4444; }
+        .dot.yellow { background: #f59e0b; }
+        .dot.green { background: #10b981; }
+
+        .window-title {
+            font-family: monospace;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+        }
+
+        pre {
+            padding: 1.25rem;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 0.86rem;
+            color: #e2e8f0;
+            overflow-x: auto;
+            line-height: 1.55;
+        }
+
+        .kw { color: #c084fc; }
+        .fn { color: #38bdf8; }
+        .str { color: #34d399; }
+        .cm { color: #64748b; }
+        .num { color: #fbbf24; }
+
+        /* Stats Strip */
+        .stats-strip {
+            max-width: 1200px;
+            margin: 0 auto 3.5rem;
+            padding: 0 1.5rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.35rem;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--accent-blue);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+
+        /* Section Layout */
+        section {
+            max-width: 1200px;
+            margin: 0 auto 4.5rem;
+            padding: 0 1.5rem;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 720px;
+            margin: 0 auto 2.5rem;
+        }
+
+        .section-header h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 0.65rem;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+        }
+
+        /* Grid Cards */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(265px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 1.6rem;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-blue);
+        }
+
+        .card-icon {
+            font-size: 1.8rem;
+            margin-bottom: 0.85rem;
+            display: inline-block;
+        }
+
+        .card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.6rem;
+            color: #fff;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.94rem;
+            margin-bottom: 1rem;
+        }
+
+        .pillar-tag {
+            display: inline-block;
+            font-size: 0.76rem;
+            font-family: monospace;
+            padding: 0.25rem 0.6rem;
+            border-radius: 6px;
+            background: rgba(56, 189, 248, 0.12);
+            color: var(--accent-blue);
+        }
+
+        /* Interactive Benefits Tabs */
+        .tabs-header {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.75rem;
+        }
+
+        .tab-btn {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 0.65rem 1.25rem;
+            border-radius: 999px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-indigo));
+            color: #fff;
+            border-color: transparent;
+        }
+
+        .tab-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        @media (max-width: 820px) {
+            .tab-panel {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .benefit-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .benefit-list li {
+            padding: 0.45rem 0;
+            color: #cbd5e1;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .benefit-list li::before {
+            content: "✓";
+            color: var(--accent-emerald);
+            font-weight: 800;
+        }
+
+        /* Interactive Simulator & Quiz Split */
+        .lab-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.75rem;
+        }
+
+        @media (max-width: 900px) {
+            .lab-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .lab-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.75rem;
+        }
+
+        .slider-group {
+            margin: 1rem 0;
+        }
+
+        .slider-group label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            margin-bottom: 0.35rem;
+            color: #cbd5e1;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            accent-color: var(--accent-blue);
+        }
+
+        .sim-output {
+            margin-top: 1.25rem;
+            padding: 1rem;
+            border-radius: 10px;
+            background: #090d16;
+            border: 1px solid rgba(56, 189, 248, 0.25);
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+
+        /* Quiz Options */
+        .quiz-option {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 0.75rem 1rem;
+            margin: 0.55rem 0;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            cursor: pointer;
+            transition: background 0.15s ease;
+        }
+
+        .quiz-option:hover {
+            background: rgba(56, 189, 248, 0.14);
+        }
+
+        /* Registration Form */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        @media (max-width: 650px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .form-field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+            margin-bottom: 0.9rem;
+        }
+
+        .form-field label {
+            font-size: 0.86rem;
+            color: #cbd5e1;
+            font-weight: 600;
+        }
+
+        .form-field input {
+            padding: 0.7rem 0.9rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: #090d16;
+            color: #fff;
+            font-size: 0.95rem;
+        }
+
+        .status-msg {
+            margin-top: 1rem;
+            padding: 0.85rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .status-msg.error {
+            display: block;
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid rgba(239, 68, 68, 0.45);
+            color: #fca5a5;
+        }
+
+        .status-msg.success {
+            display: block;
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.45);
+            color: #6ee7b7;
+        }
+
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 2rem 1.5rem;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <div class="brand">
+                <span class="brand-badge">PY // CS+AI</span>
+                <span>Computer Science & AI Evolution</span>
+                <span class="https-pill" id="protocol-badge">🔒 HTTPS Ready</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#pillars">CS Pillars</a></li>
+                    <li><a href="#benefits">AI Benefits</a></li>
+                    <li><a href="#interactive-lab">Python AI Lab</a></li>
+                    <li><a href="#student-portal">Student Registration</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <div class="hero">
+        <div>
+            <div class="school-tag">🎓 Computer Science School Project • Powered by Python</div>
+            <h1>How <span class="gradient-text">Computer Science</span> Powers the Modern AI Evolution</h1>
+            <p>
+                Artificial Intelligence isn't magic—it is built on decades of Computer Science breakthroughs in
+                algorithms, data structures, parallel hardware architecture, and Python software engineering.
+                Explore how CS transforms theory into life-changing AI systems.
+            </p>
+            <div class="btn-group">
+                <a href="#benefits" class="btn btn-primary">Explore AI Benefits</a>
+                <a href="#interactive-lab" class="btn btn-secondary">Launch Python AI Simulator</a>
+            </div>
+        </div>
+
+        <div class="code-window">
+            <div class="window-bar">
+                <div class="dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <span class="window-title">main.py — Python HTTPS Educative Engine</span>
+            </div>
+<pre><code><span class="cm"># Computer Science Foundations in Modern AI</span>
+<span class="kw">import</span> math
+
+<span class="kw">class</span> <span class="fn">NeuralLayer</span>:
+    <span class="kw">def</span> <span class="fn">__init__</span>(self, weights: list[float], bias: float):
+        self.weights = weights
+        self.bias = bias
+
+    <span class="kw">def</span> <span class="fn">forward</span>(self, inputs: list[float]) -> float:
+        <span class="cm"># Linear Algebra + Activation Algorithm</span>
+        z = <span class="fn">sum</span>(w * x <span class="kw">for</span> w, x <span class="kw">in</span> <span class="fn">zip</span>(self.weights, inputs)) + self.bias
+        <span class="kw">return</span> <span class="num">1.0</span> / (<span class="num">1.0</span> + math.<span class="fn">exp</span>(-z))
+
+layer = <span class="fn">NeuralLayer</span>([<span class="num">0.85</span>, <span class="num">0.92</span>, <span class="num">0.78</span>], bias=<span class="num">-0.5</span>)
+confidence = layer.<span class="fn">forward</span>([<span class="num">1.0</span>, <span class="num">0.9</span>, <span class="num">0.95</span>])
+<span class="fn">print</span>(<span class="str">f"AI Model Confidence: {confidence:.2%}"</span>)</code></pre>
+        </div>
+    </div>
+
+    <!-- KEY METRICS -->
+    <div class="stats-strip">
+        <div class="stat-card">
+            <div class="stat-value">#1 Language</div>
+            <div class="stat-label">Python leads global AI & Data Science research</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value">10,000x+</div>
+            <div class="stat-label">Compute speedup via GPU parallel architecture</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value">200M+</div>
+            <div class="stat-label">Protein structures predicted by AI (AlphaFold)</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value">TLS / HTTPS</div>
+            <div class="stat-label">Cryptographic security protecting modern AI APIs</div>
+        </div>
+    </div>
+
+    <!-- SECTION 1: CS PILLARS -->
+    <section id="pillars">
+        <div class="section-header">
+            <h2>The 4 Computer Science Pillars Behind AI</h2>
+            <p>Every modern AI breakthrough relies on four core branches of Computer Science working together.</p>
+        </div>
+
+        <div class="cards-grid">
+            <div class="card">
+                <span class="card-icon">🧮</span>
+                <h3>1. Algorithms & Complexity</h3>
+                <p>
+                    From graph search (A* and Dijkstra) to Backpropagation and Transformer Self-Attention,
+                    CS algorithm design reduces exponential problems into fast, tractable computations.
+                </p>
+                <span class="pillar-tag">O(n log n) Optimization</span>
+            </div>
+
+            <div class="card">
+                <span class="card-icon">⚡</span>
+                <h3>2. Computer Architecture</h3>
+                <p>
+                    Modern LLMs and vision models run on specialized parallel processors (GPUs & TPUs),
+                    high-bandwidth memory hierarchies, and distributed supercomputing clusters.
+                </p>
+                <span class="pillar-tag">Parallel Tensor Compute</span>
+            </div>
+
+            <div class="card">
+                <span class="card-icon">🐍</span>
+                <h3>3. Python & Software Ecosystems</h3>
+                <p>
+                    Python bridges human-readable code with high-performance C++/CUDA kernels through libraries
+                    like PyTorch, NumPy, and scikit-learn, accelerating scientific prototyping.
+                </p>
+                <span class="pillar-tag">Python 3 + C/CUDA Extensions</span>
+            </div>
+
+            <div class="card">
+                <span class="card-icon">🔐</span>
+                <h3>4. Cybersecurity & Cryptography</h3>
+                <p>
+                    HTTPS/TLS encryption, Differential Privacy, and formal verification ensure AI systems
+                    protect user data, prevent adversarial attacks, and remain trustworthy.
+                </p>
+                <span class="pillar-tag">HTTPS / TLS 1.3 Security</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: REAL-WORLD BENEFITS IN THE AI EVOLUTION -->
+    <section id="benefits">
+        <div class="section-header">
+            <h2>Benefits of Computer Science in the Modern AI Evolution</h2>
+            <p>Click each domain below to see how Computer Science + AI solves humanity's hardest challenges.</p>
+        </div>
+
+        <div class="tabs-header">
+            <button class="tab-btn active" onclick="selectBenefit('healthcare', this)">🏥 Healthcare & Biology</button>
+            <button class="tab-btn" onclick="selectBenefit('education', this)">📚 Personalized Education</button>
+            <button class="tab-btn" onclick="selectBenefit('climate', this)">🌍 Science & Climate</button>
+            <button class="tab-btn" onclick="selectBenefit('engineering', this)">💻 Software & Cybersecurity</button>
+        </div>
+
+        <div class="tab-panel" id="benefit-panel">
+            <div>
+                <h3 id="benefit-title" style="font-size: 1.5rem; margin-bottom: 0.75rem;">
+                    Revolutionizing Healthcare & Medical Diagnostics
+                </h3>
+                <p id="benefit-desc" style="color: var(--text-muted);">
+                    By combining computer vision algorithms with massive medical datasets, AI assists doctors in
+                    detecting diseases earlier and designing targeted life-saving drugs in months instead of decades.
+                </p>
+                <ul class="benefit-list" id="benefit-points">
+                    <li>AlphaFold solved the 50-year grand challenge of 3D protein folding.</li>
+                    <li>High-accuracy radiological screening for early-stage tumors and retinal disease.</li>
+                    <li>Genomic sequence analysis powered by fast string-matching algorithms.</li>
+                </ul>
+            </div>
+            <div class="code-window">
+                <div class="window-bar">
+                    <span class="window-title" id="benefit-code-title">medical_ai_pipeline.py</span>
+                </div>
+                <pre><code id="benefit-code">def analyze_patient_scan(pixel_matrix, threshold=0.88):
+    # Normalize imaging data using CS matrix operations
+    features = extract_biomarkers(pixel_matrix)
+    probability = model.predict_anomaly(features)
+    return {
+        "early_detection": probability >= threshold,
+        "confidence": round(probability * 100, 2)
+    }</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: INTERACTIVE PYTHON AI LAB + QUIZ -->
+    <section id="interactive-lab">
+        <div class="section-header">
+            <h2>Interactive Classroom Lab: Simulate & Test</h2>
+            <p>Experiment with AI hyperparameters in real time and test your Computer Science knowledge.</p>
+        </div>
+
+        <div class="lab-grid">
+            <!-- AI Simulator -->
+            <div class="lab-box">
+                <h3>⚙️ Live Python AI Training Simulator</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">
+                    Adjust Computer Science hyperparameters to see how algorithm design and hardware affect AI accuracy.
+                </p>
+
+                <div class="slider-group">
+                    <label>
+                        <span>Neural Network Layers (Depth)</span>
+                        <strong id="layers-val">12 Layers</strong>
+                    </label>
+                    <input type="range" id="layers-input" min="2" max="48" value="12" oninput="updateSimulation()" />
+                </div>
+
+                <div class="slider-group">
+                    <label>
+                        <span>Training Dataset Quality & Size</span>
+                        <strong id="data-val">75%</strong>
+                    </label>
+                    <input type="range" id="data-input" min="10" max="100" value="75" oninput="updateSimulation()" />
+                </div>
+
+                <div class="slider-group">
+                    <label>
+                        <span>GPU Parallel Compute Cores</span>
+                        <strong id="gpu-val">64 Tensor Units</strong>
+                    </label>
+                    <input type="range" id="gpu-input" min="8" max="256" step="8" value="64" oninput="updateSimulation()" />
+                </div>
+
+                <div class="sim-output" id="sim-output">
+                    Estimated Model Accuracy: <strong style="color:#34d399">91.4%</strong><br/>
+                    Training Time per Epoch: <strong style="color:#38bdf8">1.85 sec</strong><br/>
+                    CS Complexity Class: <strong>O(L · N · d²)</strong>
+                </div>
+            </div>
+
+            <!-- Interactive Quiz -->
+            <div class="lab-box">
+                <h3>🧠 Quick Classroom Knowledge Check</h3>
+                <p id="quiz-question" style="font-weight: 600; margin: 0.75rem 0 1rem;">
+                    1. Which Computer Science data structure & architecture powers modern Large Language Models (LLMs)?
+                </p>
+                <div id="quiz-options"></div>
+                <p id="quiz-feedback" style="margin-top: 0.85rem; font-size: 0.9rem; min-height: 1.5rem;"></p>
+                <button class="btn btn-secondary" style="margin-top: 0.5rem; padding: 0.5rem 1rem;" onclick="nextQuestion()">
+                    Next Question →
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: STUDENT REGISTRATION PORTAL -->
+    <section id="student-portal">
+        <div class="section-header">
+            <h2>Student Study Portal Registration</h2>
+            <p>Protected by our Python form validation logic (blocks empty submissions and enforces strong credentials).</p>
+        </div>
+
+        <div class="lab-box" style="max-width: 720px; margin: 0 auto;">
+            <form id="registration-form" onsubmit="handleRegistration(event)" novalidate>
+                <div class="form-grid">
+                    <div class="form-field">
+                        <label for="reg-username">Student Username</label>
+                        <input type="text" id="reg-username" placeholder="e.g. B1bay" />
+                    </div>
+                    <div class="form-field">
+                        <label for="reg-email">School Email</label>
+                        <input type="email" id="reg-email" placeholder="student@school.edu" />
+                    </div>
+                    <div class="form-field">
+                        <label for="reg-password">Password</label>
+                        <input type="password" id="reg-password" placeholder="Min 8 chars, 1 uppercase, 1 number" />
+                    </div>
+                    <div class="form-field">
+                        <label for="reg-confirm">Confirm Password</label>
+                        <input type="password" id="reg-confirm" placeholder="Re-enter password" />
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary" style="margin-top: 0.5rem;">
+                    Validate & Register Student
+                </button>
+                <div id="reg-status" class="status-msg"></div>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>
+            <strong>Computer Science & The Modern AI Evolution</strong> • Built with Python & HTTPS Support • School Project Presentation
+        </p>
+    </footer>
+
+    <script>
+        // Update protocol badge based on current protocol
+        const badge = document.getElementById('protocol-badge');
+        if (window.location.protocol === 'https:') {
+            badge.textContent = '🔒 HTTPS Active (TLS Encrypted)';
+        }
+
+        // Benefits Interactive Data
+        const benefitData = {
+            healthcare: {
+                title: 'Revolutionizing Healthcare & Medical Diagnostics',
+                desc: 'By combining computer vision algorithms with massive medical datasets, AI assists doctors in detecting diseases earlier and designing targeted life-saving drugs in months instead of decades.',
+                points: [
+                    'AlphaFold solved the 50-year grand challenge of 3D protein folding.',
+                    'High-accuracy radiological screening for early-stage tumors and retinal disease.',
+                    'Genomic sequence analysis powered by fast string-matching algorithms.'
+                ],
+                codeTitle: 'medical_ai_pipeline.py',
+                code: `def analyze_patient_scan(pixel_matrix, threshold=0.88):
+    # Normalize imaging data using CS matrix operations
+    features = extract_biomarkers(pixel_matrix)
+    probability = model.predict_anomaly(features)
+    return {
+        "early_detection": probability >= threshold,
+        "confidence": round(probability * 100, 2)
+    }`
+            },
+            education: {
+                title: 'Personalized Education & Global Accessibility',
+                desc: 'Natural Language Processing (NLP) and adaptive learning algorithms tailor explanations to each student’s pace while breaking down language and accessibility barriers.',
+                points: [
+                    '24/7 interactive coding and STEM tutors that adapt to student questions.',
+                    'Real-time speech-to-text and translation across 100+ human languages.',
+                    'Screen-reader vision models helping visually impaired learners navigate the web.'
+                ],
+                codeTitle: 'adaptive_tutor.py',
+                code: `def recommend_next_lesson(student_scores: list[int]) -> str:
+     mastery = sum(student_scores) / max(len(student_scores), 1)
+    if mastery >= 85:
+        return "Advanced Neural Architectures & Transformers"
+    elif mastery >= 65:
+        return "Data Structures & Graph Search Algorithms"
+    return "Python Fundamentals & Computational Thinking"`
+            },
+            climate: {
+                title: 'Accelerating Climate Science & Clean Energy',
+                desc: 'Physics-informed neural networks and graph algorithms simulate global weather patterns thousands of times faster than traditional supercomputers alone.',
+                points: [
+                    'High-resolution extreme weather and hurricane path forecasting (GraphCast).',
+                    'Smart electrical grid load balancing for solar and wind energy storage.',
+                    'Discovering new battery materials through computational chemistry.'
+                ],
+                codeTitle: 'smart_grid_optimizer.py',
+                code: `def optimize_renewable_grid(solar_mw: float, wind_mw: float, demand_mw: float):
+    surplus = (solar_mw + wind_mw) - demand_mw
+    action = "STORE_IN_BATTERY" if surplus > 0 else "DISPATCH_RESERVE"
+    efficiency = min(100.0, ((solar_mw + wind_mw) / max(demand_mw, 1)) * 100)
+    return {"grid_action": action, "clean_energy_share": f"{efficiency:.1f}%"}`
+            },
+            engineering: {
+                title: 'Smarter Software Engineering & Cybersecurity Defense',
+                desc: 'Computer Science powers AI assistants that detect software vulnerabilities in milliseconds, automate repetitive testing, and defend networks against zero-day attacks.',
+                points: [
+                    'Automated static code analysis and bug detection before deployment.',
+                    'Real-time network anomaly detection stopping phishing and ransomware.',
+                    'AI pair-programming tools accelerating developer learning and productivity.'
+                ],
+                codeTitle: 'cyber_defense_ai.py',
+                code: `def inspect_network_packet(packet_entropy: float, is_tls_encrypted: bool):
+    if not is_tls_encrypted:
+        return {"status": "BLOCKED", "reason": "Unencrypted connection (Use HTTPS)"}
+    risk_score = round(packet_entropy * 0.42, 3)
+    return {"status": "ALLOWED" if risk_score < 0.7 else "FLAGGED", "risk": risk_score}`
+            }
+        };
+
+        function selectBenefit(key, btnElement) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            btnElement.classList.add('active');
+            const item = benefitData[key];
+            document.getElementById('benefit-title').textContent = item.title;
+            document.getElementById('benefit-desc').textContent = item.desc;
+            document.getElementById('benefit-code-title').textContent = item.codeTitle;
+            document.getElementById('benefit-code').textContent = item.code;
+
+            const ul = document.getElementById('benefit-points');
+            ul.innerHTML = '';
+            item.points.forEach(pt => {
+                const li = document.createElement('li');
+                li.textContent = pt;
+                ul.appendChild(li);
+            });
+        }
+
+        // Simulator Logic
+        function updateSimulation() {
+            const layers = parseInt(document.getElementById('layers-input').value, 10);
+            const data = parseInt(document.getElementById('data-input').value, 10);
+            const gpu = parseInt(document.getElementById('gpu-input').value, 10);
+
+            document.getElementById('layers-val').textContent = `${layers} Layers`;
+            document.getElementById('data-val').textContent = `${data}%`;
+            document.getElementById('gpu-val').textContent = `${gpu} Tensor Units`;
+
+            const accuracy = Math.min(99.4, 58 + Math.log2(layers) * 4.8 + (data * 0.24)).toFixed(1);
+            const epochTime = Math.max(0.15, ((layers * data) / (gpu * 6.5))).toFixed(2);
+
+            document.getElementById('sim-output').innerHTML = `
+                Estimated Model Accuracy: <strong style="color:#34d399">${accuracy}%</strong><br/>
+                Training Time per Epoch: <strong style="color:#38bdf8">${epochTime} sec</strong><br/>
+                CS Complexity Class: <strong>O(L · N · d²)</strong>
+            `;
+        }
+
+        // Quiz Logic
+        const quizQuestions = [
+            {
+                q: "1. Which Computer Science architecture introduced Self-Attention and powers modern AI models?",
+                options: [
+                    "The Transformer Architecture",
+                    "Bubble Sort Algorithm",
+                    "Floppy Disk Controller",
+                    "Static HTML Tables"
+                ],
+                correct: 0,
+                explanation: "Correct! The Transformer architecture uses self-attention matrices to process context in parallel."
+            },
+            {
+                q: "2. Why is Python the most popular programming language for Artificial Intelligence?",
+                options: [
+                    "It only works on calculators",
+                    "Readable syntax combined with high-speed C/CUDA libraries like PyTorch & NumPy",
+                    "It cannot connect to the internet",
+                    "It replaces the need for algorithms"
+                ],
+                correct: 1,
+                explanation: "Correct! Python combines clean, readable code with blazingly fast C++ and GPU libraries."
+            },
+            {
+                q: "3. Why is HTTPS (TLS encryption) essential for modern AI web applications?",
+                options: [
+                    "It makes fonts larger",
+                    "It encrypts data in transit so user prompts and credentials cannot be intercepted",
+                    "It deletes the database",
+                    "It turns off the CPU"
+                ],
+                correct: 1,
+                explanation: "Correct! HTTPS uses cryptographic certificates to keep user data private and authentic."
+            }
+        ];
+
+        let currentQuizIndex = 0;
+
+        function renderQuiz() {
+            const item = quizQuestions[currentQuizIndex];
+            document.getElementById('quiz-question').textContent = item.q;
+            document.getElementById('quiz-feedback').textContent = '';
+            const container = document.getElementById('quiz-options');
+            container.innerHTML = '';
+
+            item.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'quiz-option';
+                btn.textContent = opt;
+                btn.onclick = () => {
+                    const fb = document.getElementById('quiz-feedback');
+                    if (idx === item.correct) {
+                        fb.style.color = '#34d399';
+                        fb.textContent = '✅ ' + item.explanation;
+                    } else {
+                        fb.style.color = '#fca5a5';
+                        fb.textContent = '❌ Not quite! Try another option.';
+                    }
+                };
+                container.appendChild(btn);
+            });
+        }
+
+        function nextQuestion() {
+            currentQuizIndex = (currentQuizIndex + 1) % quizQuestions.length;
+            renderQuiz();
+        }
+
+        renderQuiz();
+
+        // Registration Form Validation (Matches main.py validate_registration)
+        async function handleRegistration(e) {
+            e.preventDefault();
+            const username = document.getElementById('reg-username').value.trim();
+            const email = document.getElementById('reg-email').value.trim();
+            const password = document.getElementById('reg-password').value.trim();
+            const confirmPassword = document.getElementById('reg-confirm').value.trim();
+            const statusBox = document.getElementById('reg-status');
+
+            // Try Python backend API first if running via main.py server
+            try {
+                const res = await fetch('/api/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, email, password, confirm_password: confirmPassword })
+                });
+                if (res.ok || res.status === 400) {
+                    const data = await res.json();
+                    if (data.valid) {
+                        statusBox.className = 'status-msg success';
+                        statusBox.textContent = `✅ Welcome, ${username}! Registration validated by Python HTTPS server.`;
+                        return;
+                    } else {
+                        statusBox.className = 'status-msg error';
+                        statusBox.innerHTML = data.errors.map(err => `• ${err}`).join('<br/>');
+                        return;
+                    }
+                }
+            } catch (_) {
+                // Fallback to client-side mirror of Python validation if opened as local file
+            }
+
+            const errors = [];
+            if (!username && !email && !password && !confirmPassword) {
+                statusBox.className = 'status-msg error';
+                statusBox.textContent = '• Form cannot be submitted empty. All fields are required.';
+                return;
+            }
+            if (!username) errors.push('Username is required.');
+            else if (username.length < 3) errors.push('Username must be at least 3 characters long.');
+            else if (!/^[a-zA-Z0-9_]+$/.test(username)) errors.push('Username can only contain letters, numbers, and underscores.');
+
+            if (!email) errors.push('Email is required.');
+            else if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) errors.push('Please enter a valid email address.');
+
+            if (!password) errors.push('Password is required.');
+            else if (password.length < 8) errors.push('Password must be at least 8 characters long.');
+            else if (!/[A-Z]/.test(password) || !/[0-9]/.test(password)) {
+                errors.push('Password must include at least one uppercase letter and one number.');
+            }
+
+            if (!confirmPassword) errors.push('Please confirm your password.');
+            else if (password !== confirmPassword) errors.push('Passwords do not match.');
+
+            if (errors.length > 0) {
+                statusBox.className = 'status-msg error';
+                statusBox.innerHTML = errors.map(err => `• ${err}`).join('<br/>');
+            } else {
+                statusBox.className = 'status-msg success';
+                statusBox.textContent = `✅ Student "${username}" registered! All validation checks passed.`;
+            }
+        }
+    </script>
+</body>
+</html>
